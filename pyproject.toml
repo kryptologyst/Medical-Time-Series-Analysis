@@ -1,0 +1,63 @@
+name: medical-time-series-analysis
+version: 1.0.0
+description: Medical Time Series Analysis for Heart Rate Prediction
+authors:
+  - name: Healthcare AI Research Team
+readme: README.md
+license: MIT
+requires-python: ">=3.10"
+dependencies:
+  - torch>=2.0.0
+  - torchvision>=0.15.0
+  - torchaudio>=2.0.0
+  - numpy>=1.24.0
+  - pandas>=2.0.0
+  - scikit-learn>=1.3.0
+  - tqdm>=4.65.0
+  - omegaconf>=2.3.0
+  - pyyaml>=6.0
+  - matplotlib>=3.7.0
+  - plotly>=5.15.0
+  - seaborn>=0.12.0
+  - wfdb>=4.1.0
+  - mne>=1.4.0
+  - pyts>=0.12.0
+  - sktime>=0.20.0
+  - pydicom>=2.4.0
+  - nibabel>=5.1.0
+  - lifelines>=0.27.0
+  - streamlit>=1.25.0
+  - fastapi>=0.100.0
+  - uvicorn>=0.23.0
+  - pydantic>=2.0.0
+
+[project.optional-dependencies]
+dev:
+  - pytest>=7.4.0
+  - black>=23.0.0
+  - ruff>=0.0.280
+  - mypy>=1.5.0
+  - pre-commit>=3.3.0
+tracking:
+  - wandb>=0.15.0
+  - mlflow>=2.5.0
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+select = ["E", "F", "W", "C90", "I", "N", "UP", "YTT", "S", "BLE", "FBT", "B", "A", "COM", "C4", "DTZ", "T10", "DJ", "EM", "EXE", "FA", "ISC", "ICN", "G", "INP", "PIE", "T20", "PYI", "PT", "Q", "RSE", "RET", "SLF", "SLOT", "SIM", "TID", "TCH", "INT", "ARG", "PTH", "TD", "FIX", "ERA", "PD", "PGH", "PL", "TRY", "FLY", "NPY", "AIR", "PERF", "FURB", "LOG", "RUF"]
+ignore = ["E501", "W503", "S101"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

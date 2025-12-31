@@ -1,0 +1,102 @@
+# @package _global_
+
+# Experiment configuration
+experiment:
+  name: "heart_rate_prediction"
+  version: "1.0.0"
+  tags: ["medical", "time_series", "lstm", "heart_rate"]
+
+# Data configuration
+data:
+  synthetic:
+    n_samples: 1000
+    sequence_length: 50
+    prediction_horizon: 1
+    noise_level: 0.1
+    trend_strength: 0.5
+    seasonality_periods: [24, 168]  # daily and weekly patterns
+  
+  preprocessing:
+    normalize: true
+    standardization_method: "zscore"  # zscore, minmax, robust
+    handle_missing: "interpolate"  # interpolate, forward_fill, drop
+    
+  splits:
+    train_ratio: 0.7
+    val_ratio: 0.15
+    test_ratio: 0.15
+    random_seed: 42
+
+# Model configuration
+model:
+  architecture: "lstm"  # lstm, gru, transformer, cnn1d
+  hidden_size: 64
+  num_layers: 2
+  dropout: 0.2
+  bidirectional: false
+  
+  # Transformer specific
+  transformer:
+    d_model: 64
+    nhead: 4
+    num_layers: 2
+    dim_feedforward: 128
+    
+  # CNN1D specific
+  cnn1d:
+    channels: [32, 64, 128]
+    kernel_sizes: [3, 5, 7]
+    pooling: "max"
+
+# Training configuration
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  num_epochs: 100
+  early_stopping:
+    patience: 10
+    min_delta: 0.001
+  optimizer: "adam"  # adam, sgd, adamw
+  scheduler: "cosine"  # cosine, step, plateau
+  weight_decay: 1e-5
+  
+  # Loss configuration
+  loss:
+    type: "mse"  # mse, mae, huber, quantile
+    huber_delta: 1.0
+    quantile_alpha: 0.5
+
+# Evaluation configuration
+evaluation:
+  metrics:
+    regression: ["mse", "mae", "rmse", "mape", "r2"]
+    clinical: ["sensitivity", "specificity", "ppv", "npv"]
+  
+  calibration:
+    enabled: true
+    bins: 10
+    
+  uncertainty:
+    enabled: true
+    method: "mc_dropout"  # mc_dropout, ensemble, evidential
+    n_samples: 100
+
+# Device configuration
+device:
+  auto_detect: true
+  fallback_order: ["cuda", "mps", "cpu"]
+  mixed_precision: false
+
+# Logging configuration
+logging:
+  level: "INFO"
+  log_dir: "logs"
+  tensorboard: true
+  wandb:
+    enabled: false
+    project: "medical-time-series"
+    entity: null
+
+# Reproducibility
+seed: 42
+deterministic: true
